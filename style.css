@@ -198,4 +198,393 @@ footer {
 @keyframes modalIn {
   0% { opacity: 0; transform: translate(-50%, -60%) scale(0.95); }
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* 网站地图页面样式 */
+.sitemap-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.sitemap-section {
+  margin-bottom: 3rem;
+}
+
+.sitemap-section h2 {
+  color: #2b6cb0;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+.sitemap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.sitemap-item {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sitemap-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(44,62,80,0.12);
+}
+
+.sitemap-item h3 {
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.sitemap-item h3 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sitemap-item h3 a:hover {
+  color: #1a4a8c;
+}
+
+.sitemap-item p {
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.sitemap-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sitemap-item ul li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.sitemap-item ul li:before {
+  content: "•";
+  color: #2b6cb0;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.quick-link-group h3 {
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.quick-link-group ul {
+  list-style: none;
+  padding: 0;
+}
+
+.quick-link-group ul li {
+  margin-bottom: 0.8rem;
+}
+
+.quick-link-group ul li a {
+  color: #495057;
+  text-decoration: none;
+  transition: color 0.2s;
+  display: inline-block;
+  padding: 0.3rem 0;
+}
+
+.quick-link-group ul li a:hover {
+  color: #2b6cb0;
+  transform: translateX(5px);
+}
+
+.contact-info {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 1rem;
+  border-left: 4px solid #2b6cb0;
+}
+
+.contact-info p {
+  margin-bottom: 0.8rem;
+  color: #495057;
+}
+
+.contact-info strong {
+  color: #2b6cb0;
+}
+
+/* 网站地图页面响应式优化 */
+@media (max-width: 768px) {
+  .sitemap-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-links {
+    grid-template-columns: 1fr;
+  }
+  
+  .sitemap-content {
+    padding: 1rem;
+  }
+  
+  .sitemap-item {
+    padding: 1rem;
+  }
+}
+
+/* 游戏页面样式 */
+.game {
+  max-width: 1100px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 16px rgba(44,62,80,0.06);
+  padding: 2rem 1.5rem;
+}
+
+.game-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.game-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.game-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.game-intro h3,
+.game-question h3,
+.game-result h3 {
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+}
+
+.game-options {
+  margin: 2rem 0;
+}
+
+.game-score {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #28a745;
+  margin-top: 1rem;
+}
+
+/* 计时器页面样式 */
+.timer {
+  max-width: 1100px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 16px rgba(44,62,80,0.06);
+  padding: 2rem 1.5rem;
+}
+
+.timer-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.timer-display {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2b6cb0;
+  margin: 2rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.timer-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.timer-btn.start {
+  background: #28a745;
+  color: #fff;
+}
+
+.timer-btn.stop {
+  background: #dc3545;
+  color: #fff;
+}
+
+.timer-btn.reset {
+  background: #6c757d;
+  color: #fff;
+}
+
+.timer-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.timer-inputs {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 1rem;
+}
+
+.timer-inputs label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.timer-inputs input {
+  width: 80px;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+/* 页脚样式 */
+footer {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 3rem 0 1rem 0;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.footer-section h3 {
+  color: #3498db;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-section a:hover {
+  color: #3498db;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #34495e;
+  color: #95a5a6;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  
+  .timer-display {
+    font-size: 2rem;
+  }
+  
+  .timer-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .timer-btn {
+    width: 200px;
+  }
+  
+  .favorite-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .bookmark-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* 性能优化 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .navbar, .favorite-btn, .game, .timer {
+    display: none;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
 } 

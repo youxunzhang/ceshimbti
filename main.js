@@ -74,4 +74,238 @@ function showTypeModal(type) {
 function closeTypeModal() {
   const modal = document.getElementById('typeModal');
   if (modal) modal.style.display = 'none';
-} 
+}
+
+// 收藏功能
+const favoriteBtn = document.getElementById('favoriteBtn');
+if (favoriteBtn) {
+  favoriteBtn.addEventListener('click', function() {
+    this.classList.toggle('favorited');
+    const isFavorited = this.classList.contains('favorited');
+    
+    if (isFavorited) {
+      this.querySelector('.favorite-text').textContent = '已收藏';
+      // 保存到localStorage
+      localStorage.setItem('mbtiPageFavorited', 'true');
+    } else {
+      this.querySelector('.favorite-text').textContent = '收藏';
+      localStorage.removeItem('mbtiPageFavorited');
+    }
+  });
+  
+  // 页面加载时检查收藏状态
+  if (localStorage.getItem('mbtiPageFavorited') === 'true') {
+    favoriteBtn.classList.add('favorited');
+    favoriteBtn.querySelector('.favorite-text').textContent = '已收藏';
+  }
+}
+
+// MBTI小游戏功能
+function initGame() {
+  const gameContainer = document.getElementById('gameContainer');
+  if (!gameContainer) return;
+  
+  const gameHTML = `
+    <div class="game-intro">
+      <h3>MBTI人格类型匹配游戏</h3>
+      <p>通过回答简单问题，测试你对MBTI人格类型的了解程度！</p>
+      <button class="game-btn" onclick="startGame()">开始游戏</button>
+    </div>
+    <div class="game-question" style="display: none;">
+      <h3 id="questionText"></h3>
+      <div class="game-options" id="gameOptions"></div>
+      <div class="game-score">得分: <span id="currentScore">0</span></div>
+    </div>
+    <div class="game-result" style="display: none;">
+      <h3>游戏结束！</h3>
+      <p>你的最终得分: <span id="finalScore">0</span></p>
+      <button class="game-btn" onclick="restartGame()">再玩一次</button>
+    </div>
+  `;
+  
+  gameContainer.innerHTML = gameHTML;
+}
+
+// 游戏数据
+const gameQuestions = [
+  {
+    question: "哪种MBTI类型最擅长逻辑分析？",
+    options: ["INTP", "ESFJ", "ISFP", "ENFP"],
+    correct: 0
+  },
+  {
+    question: "哪种类型最外向和热情？",
+    options: ["INTJ", "ESFP", "ISTJ", "INFP"],
+    correct: 1
+  },
+  {
+    question: "哪种类型最适合做心理咨询师？",
+    options: ["ESTJ", "INFJ", "ISTP", "ENTP"],
+    correct: 1
+  },
+  {
+    question: "哪种类型最擅长组织和规划？",
+    options: ["INFP", "ESTJ", "ISFP", "ENFP"],
+    correct: 1
+  },
+  {
+    question: "哪种类型最有创意和想象力？",
+    options: ["ISTJ", "ENFP", "ESTJ", "ISFJ"],
+    correct: 1
+  }
+];
+
+let currentQuestionIndex = 0;
+let currentScore = 0;
+
+function startGame() {
+  currentQuestionIndex = 0;
+  currentScore = 0;
+  document.querySelector('.game-intro').style.display = 'none';
+  document.querySelector('.game-question').style.display = 'block';
+  showQuestion();
+}
+
+function showQuestion() {
+  if (currentQuestionIndex >= gameQuestions.length) {
+    endGame();
+    return;
+  }
+  
+  const question = gameQuestions[currentQuestionIndex];
+  document.getElementById('questionText').textContent = question.question;
+  document.getElementById('currentScore').textContent = currentScore;
+  
+  const optionsHTML = question.options.map((option, index) => 
+    `<button class="game-btn" onclick="selectAnswer(${index})">${option}</button>`
+  ).join('');
+  
+  document.getElementById('gameOptions').innerHTML = optionsHTML;
+}
+
+function selectAnswer(selectedIndex) {
+  const question = gameQuestions[currentQuestionIndex];
+  if (selectedIndex === question.correct) {
+    currentScore += 20;
+  }
+  
+  currentQuestionIndex++;
+  showQuestion();
+}
+
+function endGame() {
+  document.querySelector('.game-question').style.display = 'none';
+  document.querySelector('.game-result').style.display = 'block';
+  document.getElementById('finalScore').textContent = currentScore;
+}
+
+function restartGame() {
+  document.querySelector('.game-result').style.display = 'none';
+  document.querySelector('.game-intro').style.display = 'block';
+}
+
+// 计时器功能
+function initTimer() {
+  const timerContainer = document.getElementById('timerContainer');
+  if (!timerContainer) return;
+  
+  const timerHTML = `
+    <div class="timer-display" id="timerDisplay">00:00:00</div>
+    <div class="timer-controls">
+      <button class="timer-btn start" onclick="startTimer()">开始</button>
+      <button class="timer-btn stop" onclick="stopTimer()" disabled>停止</button>
+      <button class="timer-btn reset" onclick="resetTimer()">重置</button>
+    </div>
+    <div class="timer-inputs">
+      <label>设置倒计时:</label>
+      <input type="number" id="hours" placeholder="小时" min="0" max="23" value="0">
+      <input type="number" id="minutes" placeholder="分钟" min="0" max="59" value="25">
+      <input type="number" id="seconds" placeholder="秒" min="0" max="59" value="0">
+      <button class="timer-btn start" onclick="startCountdown()">开始倒计时</button>
+    </div>
+  `;
+  
+  timerContainer.innerHTML = timerHTML;
+}
+
+let timerInterval;
+let timerRunning = false;
+let startTime;
+let elapsedTime = 0;
+
+function startTimer() {
+  if (timerRunning) return;
+  
+  timerRunning = true;
+  startTime = Date.now() - elapsedTime;
+  timerInterval = setInterval(updateTimer, 1000);
+  
+  document.querySelector('.timer-btn.start').disabled = true;
+  document.querySelector('.timer-btn.stop').disabled = false;
+}
+
+function stopTimer() {
+  if (!timerRunning) return;
+  
+  timerRunning = false;
+  clearInterval(timerInterval);
+  elapsedTime = Date.now() - startTime;
+  
+  document.querySelector('.timer-btn.start').disabled = false;
+  document.querySelector('.timer-btn.stop').disabled = true;
+}
+
+function resetTimer() {
+  stopTimer();
+  elapsedTime = 0;
+  updateTimerDisplay(0);
+}
+
+function updateTimer() {
+  const currentTime = Date.now();
+  elapsedTime = currentTime - startTime;
+  updateTimerDisplay(elapsedTime);
+}
+
+function updateTimerDisplay(milliseconds) {
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  
+  const display = `${String(hours).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+  document.getElementById('timerDisplay').textContent = display;
+}
+
+function startCountdown() {
+  const hours = parseInt(document.getElementById('hours').value) || 0;
+  const minutes = parseInt(document.getElementById('minutes').value) || 0;
+  const seconds = parseInt(document.getElementById('seconds').value) || 0;
+  
+  const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+  if (totalSeconds <= 0) return;
+  
+  let remainingTime = totalSeconds;
+  
+  if (timerInterval) clearInterval(timerInterval);
+  
+  timerInterval = setInterval(() => {
+    remainingTime--;
+    const h = Math.floor(remainingTime / 3600);
+    const m = Math.floor((remainingTime % 3600) / 60);
+    const s = remainingTime % 60;
+    
+    document.getElementById('timerDisplay').textContent = 
+      `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval);
+      alert('倒计时结束！');
+    }
+  }, 1000);
+}
+
+// 页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+  initGame();
+  initTimer();
+}); 
